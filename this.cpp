@@ -1,10 +1,13 @@
 #include <iostream>
 
+static int s_num = 10; // 只被初始化一次
+
 int add(int x1, int y1)
 {
-    int count = 0;
+    static int count = 0; // 无论add()被调用多少次，count只会被初始化一次
     ++count;
     printf("count = %d\n", count);
+    s_num++;
     return x1 + y1;
 }
 
@@ -52,6 +55,7 @@ public:
 
     int add(int inputx, int y)
     {
+        ++s_num;
         return this->x + this->y;
     }
 
@@ -82,6 +86,8 @@ int main()
     {
         int result = add(1,2);
     }
+    printf("s_num = %d\n", s_num); // ok
+    printf("count = %d\n", count); // error
 
 
     int a(4);
