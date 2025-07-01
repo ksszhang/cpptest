@@ -1,4 +1,5 @@
 #include <iostream>
+#include "point4d.h"
 
 static int s_num = 10; // 只被初始化一次
 
@@ -11,7 +12,7 @@ int add(int x1, int y1)
     return x1 + y1;
 }
 
-
+static int zz;
 class point3d
 {
 private:
@@ -24,6 +25,7 @@ public:
         printf("point3d\n");
         x=0;
         y=0;
+        point3d::zz=2;
     }
 
     point3d(int x, int y, int z)
@@ -56,6 +58,7 @@ public:
     int add(int inputx, int y)
     {
         ++s_num;
+        this->x=3;
         return this->x + this->y;
     }
 
@@ -77,6 +80,27 @@ public:
         return point3d(100,100,100);
     }
 
+    const int add2(int x , int y)
+    {
+        return x + y;
+    }
+
+    int add3(int x, int y) const
+    {
+        this->x = 3;
+        return x + y;
+    }
+    const int add4(int x, int y) const
+    {
+        return x + y;
+    }
+
+    void offset()
+    {
+        point4d pt4d;
+        pt4d.x4 =1; // notice
+    }
+
 };
 
 
@@ -87,7 +111,7 @@ int main()
         int result = add(1,2);
     }
     printf("s_num = %d\n", s_num); // ok
-    printf("count = %d\n", count); // error
+    //printf("count = %d\n", count); // error
 
 
     int a(4);
@@ -111,7 +135,13 @@ int main()
     int b = 4;
     int c = {5};
 
+    // 对象数组
+    point3d pts[5]={point3d(),point3d(1,2,3)}; // ok
+    auto r = pts[5]; // error
 
+    const int result2 = pt->add2(1,2);
+
+    int result3 = pt->add3(4,5);
 }
 
 
